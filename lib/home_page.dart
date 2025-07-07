@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 
+import 'widgets/body.dart';
+
 import 'widgets/header.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,20 +32,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   void previousMonth() {
-    if(date.year==2020&&date.month==1){
+    if (date.year == 2020 && date.month == 1) {
       return;
     }
     setState(() {
-      date = DateTime(date.year, date.month - 1, date.day );
+      date = DateTime(date.year, date.month - 1, date.day);
     });
   }
 
   void nextMonth() {
-       if(date.year==DateTime.now().year&&date.month==DateTime.now().month){
+    if (date.year == DateTime.now().year &&
+        date.month == DateTime.now().month) {
       return;
     }
-      setState(() {
-      date = DateTime(date.year, date.month + 1, date.day );
+    setState(() {
+      date = DateTime(date.year, date.month + 1, date.day);
     });
   }
 
@@ -53,16 +56,27 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: Text('My Wallet')),
       body: SizedBox(
         width: double.infinity,
-        child: Header(
-          date: date,
-          sum: sum,
-          onTap: () {
-            showCalendar(context);
-          },
-          previousMonth:previousMonth ,
-          nextMont: () =>nextMonth(),
+        child: Column(
+          children: [
+            Header(
+              date: date,
+              sum: sum,
+              onTap: () {
+                showCalendar(context);
+              },
+              previousMonth: previousMonth,
+              nextMont: () => nextMonth(),
+            ),
+            SizedBox(
+              height: 30 ,
+            ),
+            Body(),
+          ],
         ),
       ),
     );
   }
 }
+
+
+
